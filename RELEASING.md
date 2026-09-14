@@ -36,3 +36,26 @@ plugin's "not allowed" state exists for that case.
 `public/icon.svg` wraps the 64 px PNG mark from the CDN because no vector Pulse
 mark exists yet. Replace it with the real SVG when one does; nothing else
 references it.
+
+## Listing image
+
+The Marketplace card is generated, never drawn by hand, so every Pulse listing
+shares one look (owner pick 15-09-2026: the two-marks card on the ciphera.net
+ember horizon). `listing/card.html` is the composition, `listing/platforms.mjs`
+the platform slot, `listing/render.mjs` the renderer.
+
+```bash
+npx playwright install chromium   # once per machine
+npm run listing                   # → listing/out/framer-{4x3,16x9,1x1,og}.png, plus @2x
+```
+
+Upload the results with the workspace script and use the CDN copies in the
+form (a revision is a NEW filename, the CDN caches immutably):
+
+```bash
+./scripts/cdn-upload.sh Pulse/pulse-framer/listing/out pulse/listing
+```
+
+A new listing (Shopify, Tag Manager, …) is one entry in `platforms.mjs` — copy
+the platform's mark from pulse-frontend's `lib/integrations.tsx` so every Pulse
+surface draws the same glyph — then `npm run listing <key>`.

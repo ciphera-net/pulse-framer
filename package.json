@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "pack": "npx framer-plugin-tools@latest pack",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "listing": "node listing/render.mjs"
   },
   "dependencies": {
     "@framer/plugin": "^5",
@@ -27,6 +28,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
+    "playwright": "^1.59.1",
     "typescript": "^5.9",
     "typescript-eslint": "^8.0.1",
     "vite": "^8",
