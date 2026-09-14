@@ -12,7 +12,7 @@ control.
    builds and packs on every PR and push.
 3. Tag it: `git tag -a vX.Y.Z -m "Release X.Y.Z" && git push origin vX.Y.Z`.
 4. `npm run pack` locally (or download `Pulse Analytics.zip` from the CI log — it is
-   printed, not stored) and check `unzip -l plugin.zip` lists `framer.json`,
+   printed, not stored) and check `unzip -l "Pulse Analytics.zip"` lists `framer.json`,
    `index.html`, `icon.svg` and the `assets/` bundle.
 5. Marketplace dashboard → the plugin → ··· → **Publish New Version** → upload
    `Pulse Analytics.zip` with change notes → Publish.
