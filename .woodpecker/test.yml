@@ -27,5 +27,5 @@ steps:
       # The artifact the Marketplace takes. `pack` fetches framer-plugin-tools
       # from npm; a missing or empty zip is a failed build, not a warning.
       - npm run pack
-      - test -s plugin.zip
-      - unzip -l plugin.zip
+      - test -s "Pulse Analytics.zip"
+      - unzip -l "Pulse Analytics.zip"
