@@ -41,3 +41,18 @@ what to strip on remove) is in `src/pulse.ts` with no Framer API, so it is
 unit-tested. `src/App.tsx` is the panel.
 
 Built on Framer's canvas plugin template: React, Vite, `@framer/plugin`.
+
+## What this plugin sends
+
+The plugin itself sends nothing anywhere. It writes the Pulse tag into your
+site's custom code, and it is the tag, running on your published site, that
+talks to Pulse. What the tag collects and what it does not is documented at
+https://docs.ciphera.net/pulse/privacy; the short version is no cookies, no
+personal data, and it stays silent for visitors who send Do Not Track or Global
+Privacy Control.
+
+## License
+
+Apache-2.0 — see `LICENSE`. "Pulse" and the Pulse mark (`public/icon.svg`) are
+trademarks of Ciphera BV; the licence covers the code, not the name or the
+logo.
