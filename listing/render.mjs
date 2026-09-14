@@ -42,7 +42,8 @@ try {
         ({ w, h, svg, name }) => {
           document.documentElement.style.setProperty("--w", `${w}px`)
           document.documentElement.style.setProperty("--h", `${h}px`)
-          document.getElementById("plat").innerHTML = svg
+          document.getElementById("plat").innerHTML = svg ?? ""
+          document.getElementById("art").classList.toggle("solo", !svg)
           document.getElementById("for").textContent = `for ${name}`
         },
         { w, h, svg: platform.svg, name: platform.name },
