@@ -1,0 +1,99 @@
+/* Pulse Analytics — Framer plugin panel. Everything visual comes from
+   @framer/plugin/framer.css tokens; this file only lays the panel out. */
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0 15px 15px 15px;
+  height: 100%;
+  gap: 12px;
+}
+
+main > .framer-spinner {
+  margin: 30px auto;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--framer-color-text-secondary);
+}
+
+.field input[type="text"] {
+  width: 100%;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--framer-color-text-secondary);
+  cursor: pointer;
+}
+
+.hint {
+  color: var(--framer-color-text-tertiary);
+}
+
+.error {
+  color: #e5484d;
+}
+
+.link {
+  color: var(--framer-color-tint);
+}
+
+.card {
+  background: var(--framer-color-bg-tertiary);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.status {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+}
+
+.status b {
+  display: block;
+  font-weight: 600;
+  color: var(--framer-color-text);
+  overflow-wrap: anywhere;
+}
+
+.status small {
+  display: block;
+  font-size: 11px;
+  color: var(--framer-color-text-secondary);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex: none;
+  background: var(--framer-color-text-tertiary);
+}
+
+.dot.ok {
+  background: #2fb344;
+}
+
+.dot.warn {
+  background: #e8a317;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--framer-color-text-secondary);
+  cursor: pointer;
+}
