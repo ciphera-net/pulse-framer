@@ -1,0 +1,31 @@
+# Routes to the in-cluster Kubernetes agent, which advertises `!runner=k8s` — a
+# MANDATORY label, so an agent is only eligible when a task asks for it.
+labels:
+  runner: k8s
+
+when:
+  - event: push
+    branch: main
+  - event: pull_request
+
+steps:
+  check:
+    image: node:22-alpine
+    # Resources are REQUIRED. Without them the step pod is QoS class BestEffort
+    # and is the first thing evicted under node memory pressure.
+    backend_options:
+      kubernetes:
+        resources:
+          requests: { memory: 1Gi, cpu: 500m }
+          limits: { memory: 2Gi }
+    commands:
+      - npm ci --no-audit --no-fund
+      - npm run typecheck
+      - npm run lint
+      - npm test
+      - npm run build
+      # The artifact the Marketplace takes. `pack` fetches framer-plugin-tools
+      # from npm; a missing or empty zip is a failed build, not a warning.
+      - npm run pack
+      - test -s plugin.zip
+      - unzip -l plugin.zip

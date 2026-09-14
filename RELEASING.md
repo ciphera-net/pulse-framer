@@ -1,0 +1,38 @@
+# Releasing Pulse Analytics for Framer
+
+Framer Marketplace plugins are uploaded by hand as a zip and go live
+immediately — there is no review queue, no fee, and no public version API.
+That last point matters: unlike wordpress.org, **nothing in the estate can
+read back what the Marketplace serves**, so the checklist below is the whole
+control.
+
+1. Bump `version` in `package.json` and note the change in the listing's
+   version notes.
+2. Merge to `main`. CI (`.woodpecker/test.yml`) typechecks, lints, tests,
+   builds and packs on every PR and push.
+3. Tag it: `git tag -a vX.Y.Z -m "Release X.Y.Z" && git push origin vX.Y.Z`.
+4. `npm run pack` locally (or download `plugin.zip` from the CI log — it is
+   printed, not stored) and check `unzip -l plugin.zip` lists `framer.json`,
+   `index.html`, `icon.svg` and the `assets/` bundle.
+5. Marketplace dashboard → the plugin → ··· → **Publish New Version** → upload
+   `plugin.zip` with change notes → Publish.
+   First release: Marketplace → Post → Plugin, with byline, description, icon,
+   screenshots and tags. The listing name is **Pulse Analytics** (matching the
+   wordpress.org listing, owner ruling 14-09-2026).
+6. Open the plugin in a Framer site and confirm the panel shows the new
+   behaviour. That fetch is the verification; a successful upload is not.
+
+## Testing in Framer
+
+The plugin cannot be exercised outside Framer's editor. `npm run dev` serves it
+on localhost with a self-signed certificate; in Framer enable **Developer
+Tools** (Plugins section of the main menu), then Plugins → **Open Development
+Plugin**. Test on a **free** site first: `setCustomCode` is a permission-gated
+method, and whether the free plan grants it is not documented anywhere — the
+plugin's "not allowed" state exists for that case.
+
+## Icon
+
+`public/icon.svg` wraps the 64 px PNG mark from the CDN because no vector Pulse
+mark exists yet. Replace it with the real SVG when one does; nothing else
+references it.
