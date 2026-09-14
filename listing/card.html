@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Pulse marketplace listing card: "two marks" (owner pick, 15-09-2026).
+     The ground is ciphera.net's hero (the glyph ember), bottom-anchored with the
+     site's own radial mask, so every Pulse listing shares one horizon. Two slots
+     change per platform: the platform mark, and the "for …" name. Everything is
+     sized from the card's own height, so the same composition renders at 4:3,
+     16:9, square and OG size. render.mjs sets --w/--h and fills the slots. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600&display=swap">
+<style>
+  :root { --w: 1600px; --h: 1200px; }
+  html, body { margin: 0; background: #0a0a0a; }
+  .art {
+    position: relative; width: var(--w); height: var(--h); overflow: hidden;
+    background: #0a0a0a; color: #f4f4f4;
+    font-family: Geist, system-ui, sans-serif;
+  }
+  .ember {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: bottom;
+    -webkit-mask-image: radial-gradient(300% 135% at 50% 100%, #000 60%, transparent 100%);
+            mask-image: radial-gradient(300% 135% at 50% 100%, #000 60%, transparent 100%);
+  }
+  .scrim { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,10,10,.55) 0%, rgba(10,10,10,0) 45%); }
+  .pair {
+    position: absolute; left: 0; right: 0; top: calc(var(--h) * 0.23);
+    display: flex; justify-content: center; align-items: center; gap: calc(var(--h) * 0.075);
+  }
+  .pair .pmark { height: calc(var(--h) * 0.25); width: auto; display: block; }
+  .pair .plus { font-size: calc(var(--h) * 0.115); line-height: 1; font-weight: 500; color: #5b5b63; }
+  .pair .plat svg { width: calc(var(--h) * 0.23); height: calc(var(--h) * 0.23); display: block; }
+  .names {
+    position: absolute; left: 0; right: 0; top: calc(var(--h) * 0.60);
+    display: flex; justify-content: center; align-items: baseline; gap: 0.35em;
+    font-size: calc(var(--h) * 0.06); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2;
+    text-shadow: 0 2px 24px rgba(10,10,10,.7), 0 0 2px rgba(10,10,10,.4);
+  }
+  .names .dim { color: rgba(244,244,244,.82); font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="art" id="art">
+    <img class="ember" src="assets/hero-glyph-ember.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="pair">
+      <img class="pmark" src="assets/pulse-mark.png" alt="">
+      <span class="plus">+</span>
+      <span class="plat" id="plat"></span>
+    </div>
+    <div class="names"><span>Pulse Analytics</span><span class="dim" id="for">for Framer</span></div>
+  </div>
+</body>
+</html>
