@@ -11,11 +11,11 @@ control.
 2. Merge to `main`. CI (`.woodpecker/test.yml`) typechecks, lints, tests,
    builds and packs on every PR and push.
 3. Tag it: `git tag -a vX.Y.Z -m "Release X.Y.Z" && git push origin vX.Y.Z`.
-4. `npm run pack` locally (or download `plugin.zip` from the CI log — it is
+4. `npm run pack` locally (or download `Pulse Analytics.zip` from the CI log — it is
    printed, not stored) and check `unzip -l plugin.zip` lists `framer.json`,
    `index.html`, `icon.svg` and the `assets/` bundle.
 5. Marketplace dashboard → the plugin → ··· → **Publish New Version** → upload
-   `plugin.zip` with change notes → Publish.
+   `Pulse Analytics.zip` with change notes → Publish.
    First release: Marketplace → Post → Plugin, with byline, description, icon,
    screenshots and tags. The listing name is **Pulse Analytics** (matching the
    wordpress.org listing, owner ruling 14-09-2026).

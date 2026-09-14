@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "pack": "npx framer-plugin-tools@latest pack",
+    "pack": "npx framer-plugin-tools@latest pack && mv -f plugin.zip \"Pulse Analytics.zip\"",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "listing": "node listing/render.mjs"

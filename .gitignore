@@ -30,7 +30,7 @@ yarn-error.log\*
 
 # Packed plugin
 
-plugin.zip
+*.zip
 
 # Rendered listing cards (upload to the CDN, do not commit)
 listing/out/
