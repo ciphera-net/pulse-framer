@@ -42,6 +42,17 @@ A Pulse account with a site registered for the same domain; the free plan is
 enough to start. The plugin is open source under Apache 2.0:
 github.com/ciphera-net/pulse-framer.
 
+This plugin is independent of Framer and is not authorized by, endorsed by, or
+otherwise approved by Framer B.V.
+
+**Framer's rules that shape this listing** (framer.com/legal/trademark-guidelines/,
+read 15-09-2026): "for Framer" phrasing is allowed and "Framer" may not be part
+of the product name; the Framer logo may not be combined with other graphics
+(the first cover paired it with the Pulse mark and was hidden within minutes);
+listings should carry the independence disclaimer above. Questions go to
+creators@framer.com. Community terms let Framer hold or remove content at its
+discretion with no stated appeal path.
+
 **Tags:** analytics, privacy, GDPR, tracking, statistics
 
 **Category:** Integrations
