@@ -1,12 +1,14 @@
 /* Pulse Analytics — Framer plugin panel. Everything visual comes from
    @framer/plugin/framer.css tokens; this file only lays the panel out. */
 
+/* height: auto on purpose — the panel measures <main> and asks Framer for
+   exactly that height; a 100% height would measure the window instead. */
 main {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   padding: 0 15px 15px 15px;
-  height: 100%;
+  height: auto;
   gap: 12px;
 }
 

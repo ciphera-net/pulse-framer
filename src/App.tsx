@@ -1,5 +1,6 @@
 import { framer, useIsAllowedTo, type CustomCode } from "@framer/plugin"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import type React from "react"
 import "./App.css"
 import {
   DASHBOARD_URL,
@@ -13,9 +14,29 @@ import {
   withPulse,
 } from "./pulse"
 
-// Panel heights per state. Framer sizes the window from showUI, not from the
-// content, so each state asks for the height it actually needs.
-const HEIGHT = { loading: 120, form: 262, installed: 196, disabled: 176 } as const
+// Framer sizes the window from showUI, not from the content, so the panel
+// measures itself and asks for exactly what it renders — no per-state table to
+// keep in step with the copy (the first build over-asked by ~35px).
+function useFittedHeight<T extends HTMLElement>(): React.RefObject<T> {
+  const ref = useRef<T>(null)
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    let last = 0
+    const fit = () => {
+      const h = Math.ceil(el.getBoundingClientRect().height)
+      if (h > 0 && h !== last) {
+        last = h
+        void framer.showUI({ position: "top right", width: 240, height: h, resizable: false })
+      }
+    }
+    fit()
+    const ro = new ResizeObserver(fit)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+  return ref
+}
 
 function useCustomCode(): CustomCode | null {
   const [code, setCode] = useState<CustomCode | null>(null)
@@ -64,12 +85,11 @@ export function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [install?.domain, install?.companion, publishedHost])
 
-  const state: keyof typeof HEIGHT =
+  const state: "loading" | "form" | "installed" | "disabled" =
     code === null ? "loading" : install && !editing ? (install.disabled ? "disabled" : "installed") : "form"
 
-  useEffect(() => {
-    framer.showUI({ position: "top right", width: 240, height: HEIGHT[state], resizable: false })
-  }, [state])
+  // One <main> element for every state so the size observer never re-mounts.
+  const mainRef = useFittedHeight<HTMLElement>()
 
   const write = useCallback(
     async (nextDomain: string | null, nextCompanion: boolean) => {
@@ -111,7 +131,7 @@ export function App() {
 
   if (state === "loading") {
     return (
-      <main>
+      <main ref={mainRef}>
         <div className="framer-spinner" aria-label="Loading" />
       </main>
     )
@@ -119,7 +139,7 @@ export function App() {
 
   if (state === "disabled" && install) {
     return (
-      <main>
+      <main ref={mainRef}>
         <div className="card">
           <div className="status">
             <i className="dot warn" />
@@ -138,7 +158,7 @@ export function App() {
 
   if (state === "installed" && install) {
     return (
-      <main>
+      <main ref={mainRef}>
         <div className="card">
           <div className="status">
             <i className="dot ok" />
@@ -168,7 +188,7 @@ export function App() {
   const normalized = normalizeDomain(domain)
   const valid = isValidDomain(normalized)
   return (
-    <main>
+    <main ref={mainRef}>
       <label className="field">
         Site domain
         <input
