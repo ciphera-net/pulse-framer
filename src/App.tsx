@@ -131,7 +131,7 @@ export function App() {
 
   if (state === "loading") {
     return (
-      <main ref={mainRef}>
+      <main ref={mainRef} data-version={__PLUGIN_VERSION__}>
         <div className="framer-spinner" aria-label="Loading" />
       </main>
     )
@@ -139,7 +139,7 @@ export function App() {
 
   if (state === "disabled" && install) {
     return (
-      <main ref={mainRef}>
+      <main ref={mainRef} data-version={__PLUGIN_VERSION__}>
         <div className="card">
           <div className="status">
             <i className="dot warn" />
@@ -158,7 +158,7 @@ export function App() {
 
   if (state === "installed" && install) {
     return (
-      <main ref={mainRef}>
+      <main ref={mainRef} data-version={__PLUGIN_VERSION__}>
         <div className="card">
           <div className="status">
             <i className="dot ok" />
@@ -188,7 +188,7 @@ export function App() {
   const normalized = normalizeDomain(domain)
   const valid = isValidDomain(normalized)
   return (
-    <main ref={mainRef}>
+    <main ref={mainRef} data-version={__PLUGIN_VERSION__}>
       <label className="field">
         Site domain
         <input

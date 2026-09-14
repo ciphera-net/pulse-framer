@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs"
+import { existsSync, readFileSync } from "node:fs"
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import mkcert from "vite-plugin-mkcert"
@@ -12,7 +12,14 @@ import framer from "vite-plugin-framer"
 // it from the network. Run `mkcert -install` once so the browser trusts the CA.
 const localMkcert = ["/opt/homebrew/bin/mkcert", "/usr/local/bin/mkcert"].find((p) => existsSync(p))
 
+// The Marketplace derives a version's identity from the uploaded bundle, and
+// rejects a duplicate ("unique constraint violation … already exists", measured
+// 15-09-2026 on a re-pack of the same build). Baking package.json's version into
+// the bundle makes every release a distinct upload.
+const { version } = JSON.parse(readFileSync(new URL("./package.json", import.meta.url), "utf8")) as { version: string }
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: { __PLUGIN_VERSION__: JSON.stringify(version) },
   plugins: [react(), mkcert({ mkcertPath: localMkcert, autoUpgrade: false }), framer()],
 })

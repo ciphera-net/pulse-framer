@@ -7,7 +7,10 @@ read back what the Marketplace serves**, so the checklist below is the whole
 control.
 
 1. Bump `version` in `package.json` and note the change in the listing's
-   version notes.
+   version notes. This is not optional: the Marketplace identifies a version by
+   the uploaded bundle and rejects a duplicate ("unique constraint violation …
+   already exists"); the version is baked into the bundle, so a bump is what
+   makes the next zip a new version.
 2. Merge to `main`. CI (`.woodpecker/test.yml`) typechecks, lints, tests,
    builds and packs on every PR and push.
 3. Tag it: `git tag -a vX.Y.Z -m "Release X.Y.Z" && git push origin vX.Y.Z`.
@@ -58,4 +61,8 @@ form (a revision is a NEW filename, the CDN caches immutably):
 
 A new listing (Shopify, Tag Manager, …) is one entry in `platforms.mjs` — copy
 the platform's mark from pulse-frontend's `lib/integrations.tsx` so every Pulse
-surface draws the same glyph — then `npm run listing <key>`.
+surface draws the same glyph — then `npm run listing <key>`. Check the
+platform's brand rules first: where its logo may not appear in third-party
+assets, set `svg: null` and the card shows the Pulse mark alone with the
+platform in text. The first Framer card carried Framer's mark and was hidden
+behind "Show reported content" within minutes of posting (15-09-2026).
