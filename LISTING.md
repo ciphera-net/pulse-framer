@@ -1,5 +1,24 @@
 # Marketplace listing — Pulse Analytics
 
+**Live:** <https://www.framer.com/marketplace/plugins/pulse-analytics/> — public
+since 15-09-2026, after Marketplace Support reviewed and cleared the moderation
+report that had held it behind "Reported · Only visible to you" since the
+night before. Verified on the live page: title "Pulse Analytics — Plugin for
+Framer", byline "Privacy-first analytics for Framer", category Integrations,
+price Free (`price: 0`), author Usman Baig, and a cover that is
+**byte-identical to `listing/out/framer-v2-4x3.png`** (sha256
+`a764422b82d8…`) — i.e. provably the logo-free card, not the withdrawn one.
+Framer re-hosts the cover on its own storage, so the CDN copy is the source,
+not the thing being served.
+
+🔴 **One thing on the live listing does NOT match this file: the independence
+disclaimer is missing.** The last paragraph below ("This plugin is independent
+of Framer…") is the sentence Framer's trademark guidelines ask a marketplace
+listing to carry, and it was the remedy offered to support during the hold — but
+it is not in the published description. Paste it in from the Marketplace
+dashboard. Nothing automated can catch this: the Marketplace has no version API,
+which is the same reason `RELEASING.md` step 6 is a manual check.
+
 The text below is what the Framer Marketplace form gets. Keep it in step with
 the plugin; the form has no version control, this file does.
 
@@ -61,8 +80,14 @@ discretion with no stated appeal path.
 
 **Links:** Website https://pulse.ciphera.net · Docs https://docs.ciphera.net/pulse/framework-guides · Support hello@ciphera.net
 
-**Card / thumbnail:** generated, see RELEASING.md → Listing image; the Framer set is at
-`cdn.ciphera.net/pulse/listing/framer-{4x3,16x9,1x1,og}[@2x].png`.
+**Card / thumbnail:** generated, see RELEASING.md → Listing image. The live set is
+`cdn.ciphera.net/pulse/listing/framer-v2-{4x3,16x9,1x1,og}[@2x].png` — the `v2`
+is the card revision and it comes from `rev` in `listing/platforms.mjs`, because
+the CDN caches these immutably.
+⚠️ **`framer-{4x3,16x9,1x1,og}[@2x].png` — no `v2` — are still live on the CDN and
+are the WITHDRAWN card carrying Framer's logo** (measured 15-09-2026: 200, 929,706 B).
+Nothing references them; they should be deleted from the bucket. Never publish a
+card at one of those names again.
 
 **Screenshots to take (light and dark):** the install form with the domain
 prefilled; the "Active on …" card with the companion on; the window menu open.

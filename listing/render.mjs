@@ -3,7 +3,8 @@
 //   npm run listing            → framer, all formats, 1× and 2×
 //   npm run listing shopify    → once shopify exists in platforms.mjs
 //
-// Output: listing/out/<platform>-<format>.png and …@2x.png (gitignored; the
+// Output: listing/out/<platform>[-<rev>]-<format>.png and …@2x.png (gitignored;
+// the
 // rendered files go to the CDN under pulse/listing/, see RELEASING.md).
 //
 // Why a script and not a screenshot: a listing image is re-made for every
@@ -22,6 +23,10 @@ if (!platform) {
   console.error(`unknown platform "${key}" — add it to listing/platforms.mjs (known: ${Object.keys(platforms).join(", ")})`)
   process.exit(2)
 }
+
+// The published name carries the card revision, because the CDN caches these
+// immutably: a redrawn card under a used name is invisible behind the old bytes.
+const stem = platform.rev ? `${key}-${platform.rev}` : key
 
 // Every store wants a different box. Render all of them from one composition.
 const FORMATS = {
@@ -52,7 +57,7 @@ try {
       await page.evaluate(() => document.fonts.ready)
       const geist = await page.evaluate(() => document.fonts.check('600 20px "Geist"'))
       if (!geist) throw new Error("Geist did not load — the card would render in a fallback face")
-      const file = join(here, "out", `${key}-${format}${scale === 2 ? "@2x" : ""}.png`)
+      const file = join(here, "out", `${stem}-${format}${scale === 2 ? "@2x" : ""}.png`)
       await page.locator("#art").screenshot({ path: file, type: "png" })
       console.log(`${file}  ${w * scale}×${h * scale}`)
       await page.close()

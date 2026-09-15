@@ -49,8 +49,26 @@ the platform slot, `listing/render.mjs` the renderer.
 
 ```bash
 npx playwright install chromium   # once per machine
-npm run listing                   # → listing/out/framer-{4x3,16x9,1x1,og}.png, plus @2x
+npm run listing                   # → listing/out/framer-v2-{4x3,16x9,1x1,og}.png, plus @2x
 ```
+
+The `v2` is the card REVISION, read from `rev` in `listing/platforms.mjs`. It is
+in the filename on purpose: `pulse/listing/*` is cached immutably at the edge, so
+a redrawn card uploaded under a name already in use is invisible — the old bytes
+are served forever. **Changing the composition means bumping `rev` in the same
+commit**, which moves the URL with the pixels. (Same failure this estate already
+paid for once on status.ciphera.net, where a stable `/static/status.css` served
+an eight-hour-old stylesheet against new markup, every pipeline green.)
+
+⚠️ `framer-{4x3,16x9,1x1,og}[@2x].png` — the un-revved names — are the first
+Framer card, the one carrying Framer's own logo that got the listing hidden.
+They are still live on the CDN and nothing references them. Do not reuse those
+names, and delete them when convenient.
+
+The render is deterministic: re-running `npm run listing` on 15-09-2026
+reproduced all four published formats byte-for-byte, and the 4:3 output matched
+the cover Framer itself is serving. A re-render is therefore a safe way to check
+the committed recipe still makes the live card.
 
 Upload the results with the workspace script and use the CDN copies in the
 form (a revision is a NEW filename, the CDN caches immutably):
@@ -61,8 +79,14 @@ form (a revision is a NEW filename, the CDN caches immutably):
 
 A new listing (Shopify, Tag Manager, …) is one entry in `platforms.mjs` — copy
 the platform's mark from pulse-frontend's `lib/integrations.tsx` so every Pulse
-surface draws the same glyph — then `npm run listing <key>`. Check the
-platform's brand rules first: where its logo may not appear in third-party
-assets, set `svg: null` and the card shows the Pulse mark alone with the
-platform in text. The first Framer card carried Framer's mark and was hidden
-behind "Show reported content" within minutes of posting (15-09-2026).
+surface draws the same glyph — then `npm run listing <key>`.
+
+🔴 **Start from `svg: null` and only add a mark if that platform's own policy
+says the logo may appear in third-party assets, in words.** This was checked
+against the current policy for all eight wave-A surfaces on 15-09-2026 (Astro,
+Nuxt, GTM/Google, Docusaurus/Meta, Drupal, Joomla, TYPO3, Odoo) and **not one of
+them permits it** — the permissions are for linking, for "built with", or for
+paid members' badges, never for a co-branded card. Silence in a policy is not
+permission. The first Framer card carried Framer's mark and was hidden behind
+"Show reported content" within minutes of posting. Evidence and the governing
+sentence per platform: `Pulse/docs/plans/14-09-2026-integration-marketplaces-strategy.md` §11a.1.
