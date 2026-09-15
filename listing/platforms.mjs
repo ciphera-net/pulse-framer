@@ -6,10 +6,16 @@
 // text only. Use it where the platform's brand rules do not allow its logo in
 // third-party assets — the first Framer card, with Framer's mark on it, was
 // hidden behind "Show reported content" within minutes of posting (15-09-2026).
+// `rev` is the card REVISION and it lands in the filename. The CDN caches
+// pulse/listing/* immutably, so a redrawn card must arrive at a NEW URL or the
+// old bytes are served forever under the old name — and for Framer the old
+// bytes are the withdrawn card that carried Framer's own logo. Bump `rev` when
+// the composition changes; never re-upload a changed card under a used name.
 export const platforms = {
   framer: {
     name: "Framer",
     svg: null,
+    rev: "v2",
   },
   // kept for reference; do not use in a listing unless Framer has said yes
   "framer-with-mark": {
