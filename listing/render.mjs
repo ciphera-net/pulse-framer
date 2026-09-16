@@ -34,6 +34,10 @@ const FORMATS = {
   "16x9": [1920, 1080],
   "1x1": [1200, 1200],
   og: [1200, 630],
+  // The Joomla Extensions Directory asks for a LOGO at "1200 x 525 or larger
+  // (aspect ratio 16:7)" — a shape no other store uses, and one that none of the
+  // four above satisfies. Added 16-09-2026 for the JED listing.
+  jed: [1200, 525],
 }
 
 mkdirSync(join(here, "out"), { recursive: true })

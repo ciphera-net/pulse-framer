@@ -17,6 +17,25 @@ export const platforms = {
     svg: null,
     rev: "v2",
   },
+  drupal: {
+    name: "Drupal",
+    // 🔴 svg: null — NOT an oversight. drupal.org/about/trademark grants the
+    // Druplicon automatically only in "standalone and unaltered form"; using it
+    // "as part of another logo" sits in the licence-grant-required bucket, and
+    // no grant was requested. Measured 15-09-2026, re-confirmed 16-09-2026.
+    // README.md and the project page carry the independence disclaimer instead.
+    svg: null,
+  },
+  joomla: {
+    name: "Joomla",
+    // 🔴 svg: null. Joomla's Conditional Use Logos may not be used "as a
+    // trademark to promote your own products or services", and the extension
+    // carve-out re-opens it only if OUR name and logo are "always larger and
+    // more prominent" — subordinate, never co-equal. Measured 15-09-2026.
+    // The verbatim OSM disclaimer goes on the listing instead; see
+    // pulse-joomla/LISTING.md.
+    svg: null,
+  },
   // kept for reference; do not use in a listing unless Framer has said yes
   "framer-with-mark": {
     name: "Framer",

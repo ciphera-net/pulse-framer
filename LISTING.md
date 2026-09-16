@@ -16,8 +16,12 @@ disclaimer is missing.** The last paragraph below ("This plugin is independent
 of Framer…") is the sentence Framer's trademark guidelines ask a marketplace
 listing to carry, and it was the remedy offered to support during the hold — but
 it is not in the published description. Paste it in from the Marketplace
-dashboard. Nothing automated can catch this: the Marketplace has no version API,
-which is the same reason `RELEASING.md` step 6 is a manual check.
+dashboard. 🔁 **Corrected 16-09-2026: this IS automatically catchable, contrary
+to what this paragraph used to say.** The listing's record is embedded in its
+public detail page, so the description body can be read with one `curl` and
+`updatedAt` moves the moment the description is edited — the check is in
+`RELEASING.md` → Follow-up tracker. What has no API is the VERSION, which is why
+`RELEASING.md` step 6 remains a manual check.
 
 The text below is what the Framer Marketplace form gets. Keep it in step with
 the plugin; the form has no version control, this file does.
@@ -73,6 +77,12 @@ creators@framer.com. Community terms let Framer hold or remove content at its
 discretion with no stated appeal path.
 
 **Tags:** analytics, privacy, GDPR, tracking, statistics
+
+🔴 **Measured 16-09-2026: the live listing carries `tags: []` — these five were
+never applied.** A peer plugin in the same category index carries **two**
+categories where ours has one. Both are set in the Marketplace dashboard and both
+feed discovery, and the listing is not on page 1 of its own Integrations
+category. `RELEASING.md` → Follow-up tracker reads the live values back.
 
 **Category:** Integrations
 
