@@ -1,6 +1,6 @@
 # Pulse Analytics for Framer
 
-The official Framer plugin for [Pulse](https://pulse.ciphera.net), Ciphera's
+The official Framer plugin for [Pulse Analytics](https://pulse.ciphera.net), Ciphera's
 privacy-first web analytics. It writes the Pulse tag into the site's custom
 code, on every published page, without opening Site Settings.
 
