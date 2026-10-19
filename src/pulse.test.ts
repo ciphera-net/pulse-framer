@@ -3,7 +3,6 @@ import type { CustomCode } from "@framer/plugin"
 import {
   buildCustomCode,
   findPulseInstall,
-  hostnameFromPublishUrl,
   isValidDomain,
   normalizeDomain,
   stripPulse,
@@ -34,18 +33,6 @@ describe("normalizeDomain / isValidDomain", () => {
     expect(isValidDomain('a.com" onload="x')).toBe(false)
     expect(isValidDomain("a b.com")).toBe(false)
     expect(isValidDomain("-a.com")).toBe(false)
-  })
-})
-
-describe("hostnameFromPublishUrl", () => {
-  it("reads the production hostname", () => {
-    expect(hostnameFromPublishUrl("https://example.com/")).toBe("example.com")
-    expect(hostnameFromPublishUrl("https://fancy-site.framer.website/about")).toBe("fancy-site.framer.website")
-  })
-  it("is null for an unpublished site or garbage", () => {
-    expect(hostnameFromPublishUrl(null)).toBeNull()
-    expect(hostnameFromPublishUrl(undefined)).toBeNull()
-    expect(hostnameFromPublishUrl("not a url")).toBeNull()
   })
 })
 

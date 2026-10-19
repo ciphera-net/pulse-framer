@@ -29,6 +29,20 @@ watchable; see the follow-up tracker below.
 6. Open the plugin in a Framer site and confirm the panel shows the new
    behaviour. That fetch is the verification; a successful upload is not.
 
+## Framer's automatic code review (since 19-10-2026)
+
+Framer now checks the code of every uploaded version automatically, and a version that fails is hidden from the
+Community until a passing version is published (the listing shows "Plugin unavailable"; the notice arrives by email
+from the Community Team). Version 1.0.1 failed with: *"The plugin sends project-derived site information to an external
+service … around getPublishInfo … Please remove the external transmission of project or site identifiers and keep any
+related processing entirely within the user's Framer project."* The plugin made no request of its own: it read the
+published URL with `framer.getPublishInfo()` only to prefill the domain field, and the domain then sits in the tag that
+loads `js.ciphera.net`. The reviewer reads that chain as project data leaving Framer.
+
+The rule since 1.0.2: **the plugin never reads project or publish information.** The domain in the tag is only ever what
+the user types. Do not reintroduce `getPublishInfo` (or any other project-reading API) to prefill or check it. If a
+version is flagged again, publish a fixed version (do not remove the plugin from the profile) or reply to the notice.
+
 ## 📍 Follow-up tracker — where this plugin is listed, and how to chase it
 
 State captured **16-09-2026**. Four directory submissions are with their
