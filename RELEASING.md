@@ -203,9 +203,22 @@ plugin's "not allowed" state exists for that case.
 
 ## Icon
 
-`public/icon.svg` wraps the 64 px PNG mark from the CDN because no vector Pulse
-mark exists yet. Replace it with the real SVG when one does; nothing else
-references it.
+`public/icon.svg` is the Pulse mark as a vector, taken unchanged from the brand
+library's Framer pack: a 512 x 512 SVG with the mark in linear gradients on a
+`#0a0a0a` square and no embedded raster. Do not re-render, resize or optimise
+it. To change the icon, copy the new file from the library.
+
+`framer.json` points at it (`"icon": "/icon.svg"`, relative to `public/`) and
+`index.html` uses it as the favicon. The square has no rounded corners because
+Framer applies the border radius itself. Framer's docs ask for an SVG designed
+at 30 x 30; this one is 512 x 512 and scales down, so check how it looks in the
+editor during step 6. The public listing page does not show the icon.
+
+The icon reaches the Marketplace only inside the uploaded zip (`npm run pack`
+copies it in as `icon.svg`), so a new icon goes live with the next **Publish
+New Version** (step 5). Bump `version` first (step 1): changing only the icon
+leaves the JavaScript bundle byte-identical, and the Marketplace rejects a
+duplicate.
 
 ## Listing image
 

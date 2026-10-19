@@ -55,4 +55,4 @@ Privacy Control.
 
 Apache-2.0 — see `LICENSE`. "Pulse" and the Pulse mark (`public/icon.svg`) are
 trademarks of Ciphera BV; the licence covers the code, not the name or the
-logo.
+logo. `public/icon.svg` is the 512 x 512 vector from Ciphera's brand library.
