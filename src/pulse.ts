@@ -33,18 +33,6 @@ export function isValidDomain(domain: string): boolean {
   return DOMAIN_RE.test(domain)
 }
 
-/** The hostname of a published Framer URL, or null when there is none yet
- *  (an unpublished site) or it does not parse. */
-export function hostnameFromPublishUrl(url: string | null | undefined): string | null {
-  if (!url) return null
-  try {
-    const host = new URL(url).hostname.toLowerCase().replace(/\.$/, "")
-    return isValidDomain(host) ? host : null
-  } catch {
-    return null
-  }
-}
-
 /** Exactly the tag Pulse's install panel emits, plus the companion script
  *  when asked for. The companion is a SECOND tag on purpose — the core
  *  script's size is a published claim and nothing may be folded into it. */

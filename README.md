@@ -4,7 +4,7 @@ The official Framer plugin for [Pulse Analytics](https://pulse.ciphera.net), Cip
 privacy-first web analytics. It writes the Pulse tag into the site's custom
 code, on every published page, without opening Site Settings.
 
-- Type your site's domain (prefilled from the published URL), click **Install
+- Type your site's domain, click **Install
   Pulse**. Done.
 - Optionally turn on the companion script that records clicks, copies and form
   submits.

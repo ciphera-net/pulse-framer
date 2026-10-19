@@ -7,7 +7,6 @@ import {
   LOCATION,
   buildCustomCode,
   findPulseInstall,
-  hostnameFromPublishUrl,
   isValidDomain,
   normalizeDomain,
   stripPulse,
@@ -52,20 +51,8 @@ function useCustomCode(): CustomCode | null {
   return code
 }
 
-function usePublishedHost(): string | null {
-  const [host, setHost] = useState<string | null>(null)
-  useEffect(() => {
-    framer
-      .getPublishInfo()
-      .then((info) => setHost(hostnameFromPublishUrl(info.production?.url ?? info.staging?.url)))
-      .catch(() => setHost(null))
-  }, [])
-  return host
-}
-
 export function App() {
   const code = useCustomCode()
-  const publishedHost = usePublishedHost()
   const allowed = useIsAllowedTo("setCustomCode")
   const install = useMemo(() => findPulseInstall(code), [code])
 
@@ -74,16 +61,16 @@ export function App() {
   const [companion, setCompanion] = useState(false)
   const [busy, setBusy] = useState(false)
 
-  // Prefill the form once from what is installed, else from the published URL.
+  // Prefill the form from what is installed. The plugin never reads the project's publish info: Framer's code review
+  // treats a project-derived domain written into a tag that loads an external script as sending project data out
+  // (19-10-2026), so the domain is only ever what the user types.
   useEffect(() => {
     if (install) {
       setDomain(install.domain)
       setCompanion(install.companion)
-    } else if (publishedHost && !domain) {
-      setDomain(publishedHost)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [install?.domain, install?.companion, publishedHost])
+  }, [install?.domain, install?.companion])
 
   const state: "loading" | "form" | "installed" | "disabled" =
     code === null ? "loading" : install && !editing ? (install.disabled ? "disabled" : "installed") : "form"
