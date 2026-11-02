@@ -33,7 +33,7 @@ the plugin; the form has no version control, this file does.
 **Description** (paragraphs; the three short lines are headings):
 
 Pulse is privacy-first web analytics from Ciphera, a company in Belgium. It
-counts your visitors without cookies or personal data, and the script it adds
+counts your visitors without cookies or stored IP addresses, and the script it adds
 to your site is under 3 KB. This plugin puts that script on every page of your
 Framer site, so you never open Site Settings for it.
 
@@ -56,7 +56,7 @@ What Pulse measures
 Pageviews, referrers, countries, devices, time on page and scroll depth, plus
 the goals, funnels and campaigns you set up: the reports most people open
 Google Analytics for, in one dashboard hosted in Europe. It sets no cookies and
-stores no personal data. Visitors whose browser sends Do Not Track or Global
+never stores IP addresses. Visitors whose browser sends Do Not Track or Global
 Privacy Control are not counted at all.
 
 You need

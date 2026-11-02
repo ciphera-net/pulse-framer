@@ -48,7 +48,7 @@ The plugin itself sends nothing anywhere. It writes the Pulse tag into your
 site's custom code, and it is the tag, running on your published site, that
 talks to Pulse. What the tag collects and what it does not is documented at
 https://docs.ciphera.net/pulse/privacy; the short version is no cookies, no
-personal data, and it stays silent for visitors who send Do Not Track or Global
+stored IP addresses, and it stays silent for visitors who send Do Not Track or Global
 Privacy Control.
 
 ## License
