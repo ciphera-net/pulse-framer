@@ -23,4 +23,11 @@ describe("what Framer's code review reads", () => {
   it("handles a failed first read of the custom code", () => {
     expect(source).toMatch(/getCustomCode\(\)\.then\(\s*\([^)]*\)\s*=>[^\n]*,\s*\(\)\s*=>/)
   })
+
+  // The second review (08-11-2026) asked how users are told what the installed script collects; 1.0.3 answers in the
+  // install form itself, with a link to the published list.
+  it("tells the user what Pulse collects before they install it", () => {
+    expect(files["./pulse.ts"]).toContain('PRIVACY_URL = "https://docs.ciphera.net/pulse/privacy"')
+    expect(files["./App.tsx"]).toMatch(/never stores IP addresses[\s\S]{0,200}href=\{PRIVACY_URL\}[\s\S]{0,120}What Pulse collects/)
+  })
 })

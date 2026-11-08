@@ -43,6 +43,17 @@ The rule since 1.0.2: **the plugin never reads project or publish information.**
 the user types. Do not reintroduce `getPublishInfo` (or any other project-reading API) to prefill or check it. If a
 version is flagged again, publish a fixed version (do not remove the plugin from the profile) or reply to the notice.
 
+🔁 **The second review, 08-11-2026 (1.0.3).** 1.0.2 removed the publish-info read, but the plugin stayed hidden: a
+reviewer's follow-up asked what the installed scripts collect, where that data is sent, and how users are informed and
+consent, and recommended handling a failed `getCustomCode()` (the panel spun forever when that read failed). The answer
+went back by email with the facts from https://docs.ciphera.net/pulse/privacy, and 1.0.3 added two things to the panel:
+a line under the install button saying what Pulse counts and never stores, linking that page, and a failure state with
+**Try again** for the first read. The listing came back the same evening. Keep both: `src/review.test.ts` fails a
+version without the disclosure line or without the failure path.
+
+To check the listing, fetch it past Framer's cache, with a unique query string: the plain URL served a cached "Plugin
+unavailable" copy for about a minute after the plugin came back.
+
 ## 📍 Follow-up tracker — where this plugin is listed, and how to chase it
 
 State captured **16-09-2026**. Four directory submissions are with their
