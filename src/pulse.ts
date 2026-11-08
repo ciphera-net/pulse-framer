@@ -5,6 +5,8 @@ import type { CustomCode, CustomCodeLocation } from "@framer/plugin"
 export const SCRIPT_URL = "https://js.ciphera.net/script.js"
 export const COMPANION_URL = "https://js.ciphera.net/script.interactions.js"
 export const DASHBOARD_URL = "https://pulse.ciphera.net/"
+/** What Pulse collects and never touches, linked from the install form (Framer asks how users are informed). */
+export const PRIVACY_URL = "https://docs.ciphera.net/pulse/privacy"
 
 /** Where the tag goes. Pulse's Framer guide says head; `defer` makes the
  *  exact position irrelevant to correctness, and end-of-head keeps it clear of

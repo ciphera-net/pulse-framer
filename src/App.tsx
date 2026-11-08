@@ -5,6 +5,7 @@ import "./App.css"
 import {
   DASHBOARD_URL,
   LOCATION,
+  PRIVACY_URL,
   buildCustomCode,
   findPulseInstall,
   isValidDomain,
@@ -37,22 +38,35 @@ function useFittedHeight<T extends HTMLElement>(): React.RefObject<T> {
   return ref
 }
 
-function useCustomCode(): CustomCode | null {
+// The first read can fail (a runtime error inside Framer). Without a catch the panel spun forever, so a failure is a
+// state of its own with a retry (Framer's code review, 08-11-2026). A later update from the subscription clears it.
+function useCustomCode(): { code: CustomCode | null; failed: boolean; retry: () => void } {
   const [code, setCode] = useState<CustomCode | null>(null)
+  const [failed, setFailed] = useState(false)
+  const [attempt, setAttempt] = useState(0)
   useEffect(() => {
     let live = true
-    framer.getCustomCode().then((c) => live && setCode(c))
-    const unsubscribe = framer.subscribeToCustomCode((c) => live && setCode(c))
+    setFailed(false)
+    framer.getCustomCode().then(
+      (c) => live && setCode(c),
+      () => live && setFailed(true),
+    )
+    const unsubscribe = framer.subscribeToCustomCode((c) => {
+      if (!live) return
+      setCode(c)
+      setFailed(false)
+    })
     return () => {
       live = false
       unsubscribe()
     }
-  }, [])
-  return code
+  }, [attempt])
+  const retry = useCallback(() => setAttempt((n) => n + 1), [])
+  return { code, failed, retry }
 }
 
 export function App() {
-  const code = useCustomCode()
+  const { code, failed, retry } = useCustomCode()
   const allowed = useIsAllowedTo("setCustomCode")
   const install = useMemo(() => findPulseInstall(code), [code])
 
@@ -72,8 +86,16 @@ export function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [install?.domain, install?.companion])
 
-  const state: "loading" | "form" | "installed" | "disabled" =
-    code === null ? "loading" : install && !editing ? (install.disabled ? "disabled" : "installed") : "form"
+  const state: "error" | "loading" | "form" | "installed" | "disabled" =
+    code === null
+      ? failed
+        ? "error"
+        : "loading"
+      : install && !editing
+        ? install.disabled
+          ? "disabled"
+          : "installed"
+        : "form"
 
   // One <main> element for every state so the size observer never re-mounts.
   const mainRef = useFittedHeight<HTMLElement>()
@@ -115,6 +137,17 @@ export function App() {
       { label: "Remove Pulse", onAction: () => void write(null, false), enabled: allowed },
     ])
   }, [install, allowed, write])
+
+  if (state === "error") {
+    return (
+      <main ref={mainRef} data-version={__PLUGIN_VERSION__}>
+        <p className="error">
+          Couldn't read this site's custom code. Try again, or add the tag in Site Settings → Custom Code.
+        </p>
+        <button onClick={retry}>Try again</button>
+      </main>
+    )
+  }
 
   if (state === "loading") {
     return (
@@ -211,6 +244,12 @@ export function App() {
       ) : (
         <p className="hint">No account details needed here. The domain must match a site in your Pulse dashboard.</p>
       )}
+      <p className="hint">
+        Pulse counts pages, referrers, devices and countries without cookies and never stores IP addresses.{" "}
+        <a className="link" href={PRIVACY_URL} target="_blank" rel="noopener">
+          What Pulse collects ↗
+        </a>
+      </p>
     </main>
   )
 }
