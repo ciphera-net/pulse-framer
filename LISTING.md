@@ -11,17 +11,22 @@ price Free (`price: 0`), author Usman Baig, and a cover that is
 Framer re-hosts the cover on its own storage, so the CDN copy is the source,
 not the thing being served.
 
-🔴 **One thing on the live listing does NOT match this file: the independence
-disclaimer is missing.** The last paragraph below ("This plugin is independent
-of Framer…") is the sentence Framer's trademark guidelines ask a marketplace
-listing to carry, and it was the remedy offered to support during the hold — but
-it is not in the published description. Paste it in from the Marketplace
-dashboard. 🔁 **Corrected 16-09-2026: this IS automatically catchable, contrary
-to what this paragraph used to say.** The listing's record is embedded in its
-public detail page, so the description body can be read with one `curl` and
-`updatedAt` moves the moment the description is edited — the check is in
-`RELEASING.md` → Follow-up tracker. What has no API is the VERSION, which is why
-`RELEASING.md` step 6 remains a manual check.
+🟢 **Measured 09-11-2026: the independence disclaimer IS on the live listing.**
+The last paragraph below ("This plugin is independent of Framer…") is the
+sentence Framer's trademark guidelines ask a marketplace listing to carry, and it
+was the remedy offered to support during the hold. It was still missing on
+16-09-2026 and is in the published description now. 🔁 **Corrected 16-09-2026:
+the listing is automatically catchable, contrary to what this paragraph used to
+say.** The listing's record is embedded in its public detail page, so the
+description body can be read with one `curl`, and `updatedAt` moves the moment
+the description is edited. The check is in `RELEASING.md` → Follow-up tracker.
+What has no API is the VERSION, which is why `RELEASING.md` step 6 remains a
+manual check.
+
+🔁 **The description below was refreshed 09-11-2026.** It went through the
+humanizer pass, and step 1 now matches plugin 1.0.2 and later, where the domain
+field starts empty and the user types the domain. The Marketplace has no API for
+the description, so paste this text from the dashboard to replace the live one.
 
 The text below is what the Framer Marketplace form gets. Keep it in step with
 the plugin; the form has no version control, this file does.
@@ -30,43 +35,27 @@ the plugin; the form has no version control, this file does.
 
 **Byline (34/34):** Privacy-first analytics for Framer
 
-**Description** (paragraphs; the three short lines are headings):
+**Description** (paragraphs; the three short lines are headings; each paragraph is one line so it pastes without stray line breaks):
 
-Pulse is privacy-first web analytics from Ciphera, a company in Belgium. It
-counts your visitors without cookies or stored IP addresses, and the script it adds
-to your site is under 3 KB. This plugin puts that script on every page of your
-Framer site, so you never open Site Settings for it.
+Pulse is privacy-first web analytics from Ciphera, a company in Belgium. It counts your visitors without cookies or stored IP addresses, and the script it adds to your site is under 3 KB. This plugin puts that script on every page of your Framer site, so you never open Site Settings for it.
 
 How it works
 
-1. Open the plugin. Your site's domain is already filled in from your published
-   URL.
-2. Click Install Pulse. Tick "Also track clicks, copies and form submits" if you
-   want those as well.
-3. Publish your site. Your dashboard at pulse.ciphera.net shows visitors as they
-   arrive.
+1. Open the plugin and type your site's domain.
+2. Click Install Pulse. Tick "Also track clicks, copies and form submits" if you want those as well.
+3. Publish your site. Your dashboard at pulse.ciphera.net shows visitors as they arrive.
 
-The panel shows what is installed and where, and warns you if someone switched
-the snippet off in Site Settings. Change the domain or remove Pulse from the
-window menu; the plugin only touches its own tags, so any other custom code
-stays exactly as you wrote it.
+The panel shows what is installed and where, and warns you if someone switched the snippet off in Site Settings. You can change the domain or remove Pulse from the window menu. The plugin only touches its own tags, so any other custom code stays as you wrote it.
 
 What Pulse measures
 
-Pageviews, referrers, countries, devices, time on page and scroll depth, plus
-the goals, funnels and campaigns you set up: the reports most people open
-Google Analytics for, in one dashboard hosted in Europe. It sets no cookies and
-never stores IP addresses. Visitors whose browser sends Do Not Track or Global
-Privacy Control are not counted at all.
+Pulse counts pageviews, referrers, countries, devices, time on page and scroll depth, plus the goals, funnels and campaigns you set up, in one dashboard hosted in Europe. It sets no cookies and never stores IP addresses. It does not count visitors whose browser sends Do Not Track or Global Privacy Control.
 
 You need
 
-A Pulse account with a site registered for the same domain; the free plan is
-enough to start. The plugin is open source under Apache 2.0:
-github.com/ciphera-net/pulse-framer.
+A Pulse account with a site registered for the same domain. The free plan is enough to start. The plugin is open source under Apache 2.0: github.com/ciphera-net/pulse-framer.
 
-This plugin is independent of Framer and is not authorized by, endorsed by, or
-otherwise approved by Framer B.V.
+This plugin is independent of Framer and is not authorized by, endorsed by, or otherwise approved by Framer B.V.
 
 **Framer's rules that shape this listing** (framer.com/legal/trademark-guidelines/,
 read 15-09-2026): "for Framer" phrasing is allowed and "Framer" may not be part
@@ -76,13 +65,19 @@ listings should carry the independence disclaimer above. Questions go to
 creators@framer.com. Community terms let Framer hold or remove content at its
 discretion with no stated appeal path.
 
-**Tags:** analytics, privacy, GDPR, tracking, statistics
+**Tags:** Analytics, Integrations
 
-🔴 **Measured 16-09-2026: the live listing carries `tags: []` — these five were
-never applied.** A peer plugin in the same category index carries **two**
-categories where ours has one. Both are set in the Marketplace dashboard and both
-feed discovery, and the listing is not on page 1 of its own Integrations
-category. `RELEASING.md` → Follow-up tracker reads the live values back.
+The Marketplace's tag taxonomy appears to be a fixed list, and peer plugins carry
+Analytics and Integrations, so those are the two to set. This line used to carry
+five free-form keywords (analytics, privacy, GDPR, tracking, statistics); they
+were never applied.
+
+🔴 **Measured 09-11-2026: the live listing still carries `tags: []`.** The same
+was measured on 16-09-2026, when a peer plugin in the same category index also
+carried **two** categories where ours has one. Both are set in the Marketplace
+dashboard and both feed discovery, and the listing is not on page 1 of its own
+Integrations category. `RELEASING.md` → Follow-up tracker reads the live values
+back.
 
 **Category:** Integrations
 
@@ -99,5 +94,6 @@ are the WITHDRAWN card carrying Framer's logo** (measured 15-09-2026: 200, 929,7
 Nothing references them; they should be deleted from the bucket. Never publish a
 card at one of those names again.
 
-**Screenshots to take (light and dark):** the install form with the domain
-prefilled; the "Active on …" card with the companion on; the window menu open.
+**Screenshots to take (light and dark):** the install form with a domain typed
+in (the field starts empty since 1.0.2); the "Active on …" card with the
+companion on; the window menu open.
