@@ -84,7 +84,7 @@ print("listing     : live")
 print("updatedAt   :", g(r"\"updatedAt\":\"([^\"]+)\""), " (moves when the description is edited)")
 print("reported    :", g(r"\"reported\":(true|false)"), " (true = hidden behind a moderation report)")
 print("featuredAt  :", g(r"\"featuredAt\":(null|\"[^\"]*\")"))
-print("tags        :", g(r"\"tags\":(\[[^\]]*\])"), " (LISTING.md specifies five)")
+print("tags        :", g(r"\"tags\":(\[[^\]]*\])"), " (LISTING.md specifies two)")
 print("categories  :", ", ".join(re.findall(r"\"name\":\"([^\"]+)\",\"slug\":\"[a-z-]+\"",r)) or "?")
 print("disclaimer  :", "PRESENT" if "independent of Framer" in u else "ABSENT  <-- owner action 1")
 '
@@ -190,24 +190,26 @@ Recorded so the search is not repeated.
 
 ### 📍 Owner actions
 
-1. 🔴 **Paste the independence disclaimer into the Marketplace description.**
-   Still absent — re-verified 16-09, zero hits for "independent", "endorsed" and
-   "Framer B.V." in both the rendered page and the embedded description JSON, and
-   `updatedAt` has not moved since 14-09. The paragraph is the last one in
-   `LISTING.md`. Framer's trademark guidelines ask a listing to carry it and it
-   was the remedy offered to support during the hold, so its absence re-opens the
-   exact ground the moderation report was filed on. ✅ **It is now watchable** —
-   the command above reports `disclaimer: PRESENT` once it lands.
+1. ✅ **Done: the independence disclaimer is on the live listing** (measured
+   09-11-2026). On 16-09 it was still absent: zero hits for "independent",
+   "endorsed" and "Framer B.V." in both the rendered page and the embedded
+   description JSON, and `updatedAt` had not moved since 14-09. The paragraph is
+   the last one in `LISTING.md`. Framer's trademark guidelines ask a listing to
+   carry it and it was the remedy offered to support during the hold. The command
+   above reports `disclaimer: PRESENT`. 🔁 `LISTING.md` holds a refreshed
+   description (09-11-2026) that still has to be pasted from the dashboard.
 2. ⚠️ **Delete the withdrawn Framer cards from the CDN.** All eight
    `pulse/listing/framer-{4x3,16x9,1x1,og}[@2x].png` — no `v2` — still return
    **200** (re-verified 16-09; 12.2 MB across the set). They are the card that
    paired Framer's mark with the Pulse mark and got the listing hidden. Nothing
    references them. ⚠️ Dual-write: **Bunny Edge Storage and Exoscale SOS**. The
    assistant has the credentials and can do it on one word.
-3. 🔴 **Add the five tags and a second category in the Marketplace dashboard.**
-   The listing has `tags: []` and only `Integrations`. `LISTING.md` specifies
-   analytics, privacy, GDPR, tracking, statistics, and a peer in the same index
-   carries two categories. This is free discovery we are not taking.
+3. 🔴 **Set the tags in the Marketplace dashboard: Analytics and Integrations.**
+   Measured 09-11-2026: the listing still has `tags: []` and only the category
+   `Integrations`. The Marketplace's tag taxonomy appears to be a fixed list and
+   peers in the same index carry Analytics and Integrations, so `LISTING.md` now
+   specifies those two (it used to specify five free-form keywords: analytics,
+   privacy, GDPR, tracking, statistics). This is free discovery we are not taking.
 4. 📍 **Optional, needs a human: announce in Framer's community.** The Community
    Feed (`framer.com/community/feed/`) takes a post from the creator account, and
    Framer's official Discord (`discord.com/invite/framer`, `VERIFIED` and
