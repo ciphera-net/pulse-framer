@@ -1,19 +1,19 @@
 # Pulse Analytics for Framer
 
-The official Framer plugin for [Pulse Analytics](https://pulse.ciphera.net), Ciphera's
-privacy-first web analytics. It writes the Pulse tag into the site's custom
-code, on every published page, without opening Site Settings.
+This is the official Framer plugin for [Pulse Analytics](https://pulse.ciphera.net),
+Ciphera's privacy-first web analytics. It writes the Pulse tag into the site's
+custom code, on every published page, without opening Site Settings.
 
-- Type your site's domain, click **Install
-  Pulse**. Done.
+- Type your site's domain and click **Install Pulse**. That completes the install.
 - Optionally turn on the companion script that records clicks, copies and form
   submits.
 - The panel shows what is installed and where, and notices when someone turns
   the snippet off in Site Settings → Custom Code.
 - **Remove Pulse** and **Change domain** live in the window's ··· menu.
 
-No account details are entered in Framer. The domain must match a site in your
-Pulse dashboard; create one at https://pulse.ciphera.net if it is not there yet.
+You do not enter any account details in Framer. The domain must match a site in
+your Pulse dashboard; create one at https://pulse.ciphera.net if it is not there
+yet.
 
 ## What it writes
 
@@ -21,10 +21,10 @@ Pulse dashboard; create one at https://pulse.ciphera.net if it is not there yet.
 <script defer data-domain="example.com" src="https://js.ciphera.net/script.js"></script>
 ```
 
-and, when the companion is on, a second tag for
+When the companion is on, it also writes a second tag for
 `https://js.ciphera.net/script.interactions.js`. Both go to **end of head**.
-Custom code that is not Pulse's is left exactly as it was — install, change and
-remove only ever touch the Pulse tags.
+The plugin leaves custom code that is not Pulse's exactly as it was. Install,
+change and remove only ever touch the Pulse tags.
 
 ## Development
 
@@ -37,22 +37,24 @@ npm run pack       # plugin.zip for the Marketplace
 ```
 
 Everything the plugin decides (what tag to write, what counts as installed,
-what to strip on remove) is in `src/pulse.ts` with no Framer API, so it is
-unit-tested. `src/App.tsx` is the panel.
+what to strip on remove) is in `src/pulse.ts`, which does not use the Framer
+API, so it is unit-tested. `src/App.tsx` is the panel.
 
-Built on Framer's canvas plugin template: React, Vite, `@framer/plugin`.
+The plugin is built on Framer's canvas plugin template (React, Vite and
+`@framer/plugin`).
 
 ## What this plugin sends
 
 The plugin itself sends nothing anywhere. It writes the Pulse tag into your
 site's custom code, and it is the tag, running on your published site, that
-talks to Pulse. What the tag collects and what it does not is documented at
-https://docs.ciphera.net/pulse/privacy; the short version is no cookies, no
-stored IP addresses, and it stays silent for visitors who send Do Not Track or Global
-Privacy Control.
+talks to Pulse. What the tag collects and what it does not collect is documented
+at https://docs.ciphera.net/pulse/privacy. In short, Pulse Analytics
+sets no cookies and never stores IP addresses, and the tag stays silent for
+visitors who send Do Not Track or Global Privacy Control.
 
 ## License
 
-Apache-2.0 — see `LICENSE`. "Pulse" and the Pulse mark (`public/icon.svg`) are
+The plugin is licensed under Apache-2.0 (see `LICENSE`).
+"Pulse" and the Pulse mark (`public/icon.svg`) are
 trademarks of Ciphera BV; the licence covers the code, not the name or the
 logo. `public/icon.svg` is the 512 x 512 vector from Ciphera's brand library.
