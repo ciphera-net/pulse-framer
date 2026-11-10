@@ -231,9 +231,10 @@ plugin's "not allowed" state exists for that case.
 ## Icon
 
 `public/icon.svg` is the Pulse mark as a vector, taken unchanged from the brand
-library's Framer pack: a 512 x 512 SVG with the mark in linear gradients on a
-`#0a0a0a` square and no embedded raster. Do not re-render, resize or optimise
-it. To change the icon, copy the new file from the library.
+library's Framer pack (revision v12): a 512 x 512 SVG with the mark in white
+layers on a brand orange `#FD5E0F` square, the same mark as Ciphera's profile
+pictures, and no embedded raster. Do not re-render, resize or optimise it. To
+change the icon, copy the new file from the library.
 
 `framer.json` points at it (`"icon": "/icon.svg"`, relative to `public/`) and
 `index.html` uses it as the favicon. The square has no rounded corners because
