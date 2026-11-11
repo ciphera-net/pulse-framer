@@ -49,7 +49,7 @@ The panel shows what is installed and where, and warns you if someone switched t
 
 What Pulse measures
 
-Pulse counts pageviews, referrers, countries, devices, time on page and scroll depth, plus the goals, funnels and campaigns you set up, in one dashboard hosted in Europe. It sets no cookies and never stores IP addresses. It does not count visitors whose browser sends Do Not Track or Global Privacy Control.
+Pulse counts pageviews, referrers, countries, devices, time on page and scroll depth, plus the goals, funnels and campaigns you set up, in one dashboard hosted in Switzerland. It sets no cookies and never stores IP addresses. It does not count visitors whose browser sends Do Not Track or Global Privacy Control.
 
 You need
 
