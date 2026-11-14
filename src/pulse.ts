@@ -3,7 +3,6 @@
 import type { CustomCode, CustomCodeLocation } from "@framer/plugin"
 
 export const SCRIPT_URL = "https://js.ciphera.net/script.js"
-export const COMPANION_URL = "https://js.ciphera.net/script.interactions.js"
 export const DASHBOARD_URL = "https://pulse.ciphera.net/"
 /** What Pulse collects and never touches, linked from the install form (Framer asks how users are informed). */
 export const PRIVACY_URL = "https://docs.ciphera.net/pulse/privacy"
@@ -35,19 +34,15 @@ export function isValidDomain(domain: string): boolean {
   return DOMAIN_RE.test(domain)
 }
 
-/** Exactly the tag Pulse's install panel emits, plus the companion script
- *  when asked for. The companion is a SECOND tag on purpose — the core
- *  script's size is a published claim and nothing may be folded into it. */
-export function buildCustomCode(domain: string, companion: boolean): string {
+/** Exactly the tag Pulse's install panel emits. The core script loads the interactions script by itself when
+ *  the site's settings in Pulse switch clicks, copies and form submits on, so there is only ever one tag. */
+export function buildCustomCode(domain: string): string {
   if (!isValidDomain(domain)) throw new Error(`not a valid domain: ${domain}`)
-  const core = `<script defer data-domain="${domain}" src="${SCRIPT_URL}"></script>`
-  if (!companion) return core
-  return `${core}\n<script defer src="${COMPANION_URL}"></script>`
+  return `<script defer data-domain="${domain}" src="${SCRIPT_URL}"></script>`
 }
 
 export interface PulseInstall {
   domain: string
-  companion: boolean
   location: CustomCodeLocation
   /** The user switched the snippet off in Site Settings → Custom Code. A
    *  plugin cannot switch it back on; only the user can. */
@@ -55,6 +50,7 @@ export interface PulseInstall {
 }
 
 const CORE_TAG_RE = /<script\b[^>]*\bsrc=["']https:\/\/js\.ciphera\.net\/script\.js["'][^>]*>\s*<\/script>/gi
+/** The second tag that plugin versions before 1.1.0 wrote. It is never written now, and stripped on every save. */
 const COMPANION_TAG_RE = /<script\b[^>]*\bsrc=["']https:\/\/js\.ciphera\.net\/script\.interactions\.js["'][^>]*>\s*<\/script>/gi
 const DOMAIN_ATTR_RE = /\bdata-domain=["']([^"']*)["']/i
 
@@ -68,9 +64,7 @@ export function findPulseInstall(code: CustomCode | null | undefined): PulseInst
     const tags = entry.html.match(CORE_TAG_RE)
     if (!tags || tags.length === 0) continue
     const domain = tags[0].match(DOMAIN_ATTR_RE)?.[1] ?? ""
-    const companion = COMPANION_TAG_RE.test(entry.html)
-    COMPANION_TAG_RE.lastIndex = 0
-    return { domain, companion, location, disabled: entry.disabled }
+    return { domain, location, disabled: entry.disabled }
   }
   return null
 }

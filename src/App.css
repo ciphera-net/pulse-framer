@@ -27,14 +27,6 @@ main > .framer-spinner {
   width: 100%;
 }
 
-.check {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--framer-color-text-secondary);
-  cursor: pointer;
-}
-
 .hint {
   color: var(--framer-color-text-tertiary);
 }
@@ -90,12 +82,4 @@ main > .framer-spinner {
 
 .dot.warn {
   background: #e8a317;
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--framer-color-text-secondary);
-  cursor: pointer;
 }
