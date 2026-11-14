@@ -38,30 +38,31 @@ describe("normalizeDomain / isValidDomain", () => {
 
 describe("buildCustomCode", () => {
   it("is exactly the Pulse tag", () => {
-    expect(buildCustomCode("example.com", false)).toBe(
+    expect(buildCustomCode("example.com")).toBe(
       '<script defer data-domain="example.com" src="https://js.ciphera.net/script.js"></script>',
     )
   })
-  it("adds the companion as a second tag, never inside the core", () => {
-    const html = buildCustomCode("example.com", true)
-    expect(html.split("\n")).toHaveLength(2)
-    expect(html).toContain('src="https://js.ciphera.net/script.interactions.js"')
+  it("is one tag, with no interactions script and no flag attributes", () => {
+    const html = buildCustomCode("example.com")
+    expect(html.split("\n")).toHaveLength(1)
+    expect(html).not.toContain("script.interactions.js")
+    expect(html).not.toMatch(/data-(no-|ignore-)/)
   })
   it("refuses a domain that could break the attribute", () => {
-    expect(() => buildCustomCode('x.com"><script>', false)).toThrow()
+    expect(() => buildCustomCode('x.com"><script>')).toThrow()
   })
 })
 
 describe("findPulseInstall", () => {
   it("finds the plugin's own install", () => {
     const code = empty()
-    code.headEnd.html = buildCustomCode("example.com", true)
-    expect(findPulseInstall(code)).toEqual({ domain: "example.com", companion: true, location: "headEnd", disabled: false })
+    code.headEnd.html = buildCustomCode("example.com")
+    expect(findPulseInstall(code)).toEqual({ domain: "example.com", location: "headEnd", disabled: false })
   })
   it("finds a hand-pasted tag in another location, and reports disabled", () => {
     const code = empty()
     code.bodyEnd = { html: "<script defer data-domain='hand.example' src='https://js.ciphera.net/script.js'></script>", disabled: true }
-    expect(findPulseInstall(code)).toEqual({ domain: "hand.example", companion: false, location: "bodyEnd", disabled: true })
+    expect(findPulseInstall(code)).toEqual({ domain: "hand.example", location: "bodyEnd", disabled: true })
   })
   it("is null when there is no Pulse tag, even with other custom code present", () => {
     const code = empty()
@@ -74,21 +75,33 @@ describe("findPulseInstall", () => {
 describe("stripPulse / withPulse — never touch code that is not ours", () => {
   const theirs = '<link rel="preconnect" href="https://fonts.gstatic.com">'
   it("removes only Pulse's tags", () => {
-    const html = `${theirs}\n${buildCustomCode("example.com", true)}`
+    const html = `${theirs}\n${buildCustomCode("example.com")}`
     expect(stripPulse(html)).toBe(theirs)
   })
   it("returns null when nothing is left, which clears the location", () => {
-    expect(stripPulse(buildCustomCode("example.com", false))).toBeNull()
+    expect(stripPulse(buildCustomCode("example.com"))).toBeNull()
     expect(stripPulse(null)).toBeNull()
     expect(stripPulse("   \n ")).toBeNull()
   })
   it("replaces an old Pulse install and keeps the rest", () => {
-    const before = `${theirs}\n${buildCustomCode("old.example", false)}`
-    const after = withPulse(before, buildCustomCode("new.example", true))
+    const before = `${theirs}\n${buildCustomCode("old.example")}`
+    const after = withPulse(before, buildCustomCode("new.example"))
     expect(after.startsWith(theirs)).toBe(true)
     expect(after).toContain('data-domain="new.example"')
     expect(after).not.toContain("old.example")
     expect(after.match(/script\.js/g)).toHaveLength(1)
+  })
+  const legacy = (domain: string) =>
+    `<script defer data-domain="${domain}" src="https://js.ciphera.net/script.js"></script>\n<script defer src="https://js.ciphera.net/script.interactions.js"></script>`
+  it("removes the interactions tag that versions before 1.1.0 wrote", () => {
+    expect(stripPulse(`${theirs}\n${legacy("example.com")}`)).toBe(theirs)
+    expect(stripPulse(legacy("example.com"))).toBeNull()
+  })
+  it("saving over an older install leaves exactly one tag and no interactions script", () => {
+    const after = withPulse(`${theirs}\n${legacy("example.com")}`, buildCustomCode("example.com"))
+    expect(after).not.toContain("script.interactions.js")
+    expect(after.match(/<script/g)).toHaveLength(1)
+    expect(after.startsWith(theirs)).toBe(true)
   })
   it("installs cleanly into an empty location", () => {
     expect(withPulse(null, "X")).toBe("X")

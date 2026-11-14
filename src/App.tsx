@@ -72,7 +72,6 @@ export function App() {
 
   const [editing, setEditing] = useState(false)
   const [domain, setDomain] = useState("")
-  const [companion, setCompanion] = useState(false)
   const [busy, setBusy] = useState(false)
 
   // Prefill the form from what is installed. The plugin never reads the project's publish info: Framer's code review
@@ -81,10 +80,9 @@ export function App() {
   useEffect(() => {
     if (install) {
       setDomain(install.domain)
-      setCompanion(install.companion)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [install?.domain, install?.companion])
+  }, [install?.domain])
 
   const state: "error" | "loading" | "form" | "installed" | "disabled" =
     code === null
@@ -101,13 +99,13 @@ export function App() {
   const mainRef = useFittedHeight<HTMLElement>()
 
   const write = useCallback(
-    async (nextDomain: string | null, nextCompanion: boolean) => {
+    async (nextDomain: string | null) => {
       if (!code) return
       setBusy(true)
       try {
         const location = install?.location ?? LOCATION
         const existing = code[location]?.html
-        const html = nextDomain ? withPulse(existing, buildCustomCode(nextDomain, nextCompanion)) : stripPulse(existing)
+        const html = nextDomain ? withPulse(existing, buildCustomCode(nextDomain)) : stripPulse(existing)
         await framer.setCustomCode({ html, location })
         framer.notify(nextDomain ? `Pulse is tracking ${nextDomain}` : "Pulse removed from this site", {
           variant: "success",
@@ -134,7 +132,7 @@ export function App() {
       open,
       { label: "Change domain", onAction: () => setEditing(true), enabled: allowed },
       { type: "separator" },
-      { label: "Remove Pulse", onAction: () => void write(null, false), enabled: allowed },
+      { label: "Remove Pulse", onAction: () => void write(null), enabled: allowed },
     ])
   }, [install, allowed, write])
 
@@ -187,16 +185,6 @@ export function App() {
               <small>Tag added at {locationLabel(install.location)}</small>
             </div>
           </div>
-          <hr />
-          <label className="row">
-            <span>Clicks, copies, forms</span>
-            <input
-              type="checkbox"
-              checked={install.companion}
-              disabled={!allowed || busy}
-              onChange={(e) => void write(install.domain, e.target.checked)}
-            />
-          </label>
         </div>
         <a className="link" href={DASHBOARD_URL} target="_blank" rel="noopener">
           Open dashboard ↗
@@ -220,14 +208,10 @@ export function App() {
           onChange={(e) => setDomain(e.target.value)}
         />
       </label>
-      <label className="check">
-        <input type="checkbox" checked={companion} onChange={(e) => setCompanion(e.target.checked)} />
-        Also track clicks, copies and form submits
-      </label>
       <button
         className="framer-button-primary"
         disabled={!allowed || !valid || busy}
-        onClick={() => void write(normalized, companion)}
+        onClick={() => void write(normalized)}
       >
         {install ? "Save" : "Install Pulse"}
       </button>

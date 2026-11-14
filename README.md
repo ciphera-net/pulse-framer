@@ -5,8 +5,8 @@ Ciphera's privacy-first web analytics. It writes the Pulse tag into the site's
 custom code, on every published page, without opening Site Settings.
 
 - Type your site's domain and click **Install Pulse**. That completes the install.
-- Optionally turn on the companion script that records clicks, copies and form
-  submits.
+- Scroll depth, outbound links, file downloads, and clicks, copies and form submits are each switched on or off in
+  your site's settings in Pulse (Settings → General). The tag stays the same, so there is nothing to change here.
 - The panel shows what is installed and where, and notices when someone turns
   the snippet off in Site Settings → Custom Code.
 - **Remove Pulse** and **Change domain** live in the window's ··· menu.
@@ -21,8 +21,9 @@ yet.
 <script defer data-domain="example.com" src="https://js.ciphera.net/script.js"></script>
 ```
 
-When the companion is on, it also writes a second tag for
-`https://js.ciphera.net/script.interactions.js`. Both go to **end of head**.
+It goes to **end of head**. Plugin versions before 1.1.0 could also write a second tag for
+`https://js.ciphera.net/script.interactions.js`. Saving a domain with this version removes that tag, because the
+script loads the interactions script by itself when your site's settings in Pulse ask for it.
 The plugin leaves custom code that is not Pulse's exactly as it was. Install,
 change and remove only ever touch the Pulse tags.
 

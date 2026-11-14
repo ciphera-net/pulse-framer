@@ -37,13 +37,15 @@ the plugin; the form has no version control, this file does.
 
 **Description** (paragraphs; the three short lines are headings; each paragraph is one line so it pastes without stray line breaks):
 
-Pulse is privacy-first web analytics from Ciphera, a company in Belgium. It counts your visitors without cookies or stored IP addresses, and the script it adds to your site is under 3 KB. This plugin puts that script on every page of your Framer site, so you never open Site Settings for it.
+Pulse is privacy-first web analytics from Ciphera, a company in Belgium. It counts your visitors without cookies or stored IP addresses, and the script it adds to your site is about 3 KB. This plugin puts that script on every page of your Framer site, so you never open Site Settings for it.
 
 How it works
 
 1. Open the plugin and type your site's domain.
-2. Click Install Pulse. Tick "Also track clicks, copies and form submits" if you want those as well.
+2. Click Install Pulse.
 3. Publish your site. Your dashboard at pulse.ciphera.net shows visitors as they arrive.
+
+Scroll depth, outbound links, file downloads, and clicks, copies and form submits are each switched on or off in your site's settings in Pulse (Settings > General). The tag stays the same, so there is nothing to change here.
 
 The panel shows what is installed and where, and warns you if someone switched the snippet off in Site Settings. You can change the domain or remove Pulse from the window menu. The plugin only touches its own tags, so any other custom code stays as you wrote it.
 
@@ -64,6 +66,8 @@ of the product name; the Framer logo may not be combined with other graphics
 listings should carry the independence disclaimer above. Questions go to
 creators@framer.com. Community terms let Framer hold or remove content at its
 discretion with no stated appeal path.
+
+**Version notes, 1.1.0 (paste into the publish form):** The clicks, copies and form submits toggle is gone. Your site's settings in Pulse decide those now, and the tag stays the same. Saving a domain removes the second tag that older versions of the plugin wrote.
 
 **Tags:** Analytics, Integrations
 
@@ -95,5 +99,5 @@ Nothing references them; they should be deleted from the bucket. Never publish a
 card at one of those names again.
 
 **Screenshots to take (light and dark):** the install form with a domain typed
-in (the field starts empty since 1.0.2); the "Active on …" card with the
-companion on; the window menu open.
+in (the field starts empty since 1.0.2); the "Active on …" card (it has no
+toggle since 1.1.0, so retake it); the window menu open.
